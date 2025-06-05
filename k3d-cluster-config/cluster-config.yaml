@@ -1,0 +1,33 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: k8ground
+servers: 1
+agents: 2
+# image: rancher/k3s:v1.27.4-k3s1
+
+options:
+  k3s:
+    extraArgs:
+      - arg: "--kubelet-arg=eviction-hard=memory.available<200Mi"
+        nodeFilters:
+          - server:*
+      - arg: "--kubelet-arg=eviction-hard=memory.available<200Mi"
+        nodeFilters:
+          - agent:*
+
+ports:
+  - port: "80:80"
+    nodeFilters:
+      - loadbalancer
+  - port: "443:443"
+    nodeFilters:
+      - loadbalancer
+
+env:
+  - envVar: "K3D_FIX_MEMORY_LIMIT=1"
+    nodeFilters:
+      - server:*
+  - envVar: "K3D_FIX_MEMORY_LIMIT=1"
+    nodeFilters:
+      - agent:*
