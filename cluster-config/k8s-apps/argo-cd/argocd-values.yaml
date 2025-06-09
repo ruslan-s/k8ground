@@ -14,10 +14,9 @@ server:
               port:
                 number: 80
     annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: web
-      traefik.ingress.kubernetes.io/router.rule: Host(`argocd.k8ground.test`)
+      traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
 
-  # ОDisable HTTPS for test environment
+  # Disable HTTPS for test environment
   extraArgs:
     - --insecure
 

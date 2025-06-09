@@ -1,0 +1,59 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-http-https
+  namespace: dg-argocd
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-http
+  namespace: dg-argocd
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`argocd.k8ground.test`)
+    priority: 10
+    middlewares:
+      - name: redirect-http-https
+    services:
+    - kind: Service
+      name: argocd-server
+      port: http
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-https
+  namespace: dg-argocd
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - kind: Rule
+    match: Host(`argocd.k8ground.test`)
+    priority: 10
+    services:
+    - kind: Service
+      name: argocd-server
+      port: http
+  - kind: Rule
+    match: Host(`argocd.k8ground.test`) && Headers(`Content-Type`, `application/grpc`)
+    priority: 11
+    services:
+    - kind: Service
+      name: argocd-server
+      port: http
+      scheme: h2c
+  tls:
+    secretName: argocd-certificate
