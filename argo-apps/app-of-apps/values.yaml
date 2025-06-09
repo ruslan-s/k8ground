@@ -1,6 +1,6 @@
 applications:
   # Simple nginx app
-  - name: app-test-dummy-nginx
+  - name: dummy-nginx
     namespace: playground
     repoURL: https://github.com/ruslan-s/k8ground.git 
     path: argo-apps/apps/nginx
