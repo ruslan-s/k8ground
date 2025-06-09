@@ -8,7 +8,6 @@ helm install argocd argo/argo-cd \
 
 # helm uninstall argocd -n dg-argocd
 
-
 # In order to access the server UI you have the following options:
 
 # 1. kubectl port-forward service/argocd-server -n devground 8080:443

@@ -1,6 +1,23 @@
 # Argo CD CLI 
-argocd login argocd.k8ground.test --username xxx --password xxx --insecure --grpc-web
-argocd repo add https://github.com/ruslan-s/k8ground.git --username <pat-secrtet> --password <pat-secret> --name k8ground --project default
+argocd login argocd.k8ground.test \
+	--username xxx \
+	--password xxx \
+	--insecure \
+	--grpc-web
+
+argocd repo add https://github.com/ruslan-s/k8ground.git \
+	--username <pat-secrtet> \
+	--password <pat-secret> \
+	--name k8ground \
+	--project default
+
+argocd app create root-app \
+  --repo https://github.com/ruslan-s/k8ground.git \
+  --path "argo-apps/app-of-apps" \
+  --dest-namespace dg-argocd \
+  --dest-server https://kubernetes.default.svc \
+  --sync-policy automated \
+  --auto-prune
 
 # K8s CLI
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
