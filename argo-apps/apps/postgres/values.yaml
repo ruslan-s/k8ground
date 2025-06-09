@@ -7,6 +7,13 @@ postgresql:
     password: "admin"      # For production, use a proper secret
     database: "app_db"
   
+  # Configure ingress
+  ingress:
+    enabled: true
+    hostname: psql.k8ground.test
+    path: /
+    pathType: Prefix
+  
   # Resources configuration
   primary:
     resources:
@@ -29,13 +36,6 @@ postgresql:
     service:
       type: ClusterIP
       port: 5432
-
-    # Configure ingress
-    ingress:
-      enabled: true
-      hostname: psql.k8ground.test
-      path: /
-      pathType: Prefix
   
   # Enable metrics (Prometheus)
   metrics:
