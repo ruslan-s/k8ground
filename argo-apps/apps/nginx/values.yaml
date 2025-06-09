@@ -4,4 +4,4 @@ nginx:
     registry: docker.io
     repository: nginx
     tag: "1.25.2-alpine"  # Default image tag
-  replicaCount: 5         # Default replicas
+  replicaCount: 1         # Default replicas
