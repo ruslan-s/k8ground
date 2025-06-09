@@ -11,6 +11,12 @@ applications:
     repoURL: https://github.com/ruslan-s/k8ground.git 
     path: argo-apps/apps/postgres
 
+  # pgAdmin for managing PostgreSQL databases
+  - name: pgadmin
+    namespace: dev-stage
+    repoURL: https://github.com/ruslan-s/k8ground.git
+    path: argo-apps/apps/pgadmin
+
   # Keycloak for authentication
   - name: keycloak
     namespace: dg-auth

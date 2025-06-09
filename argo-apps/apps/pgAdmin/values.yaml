@@ -1,0 +1,25 @@
+pgadmin4:
+  env:
+    email: admin@k8ground.test
+    password: admin
+  
+  ingress:
+    enabled: true
+    hosts:
+      - host: pgadmin.k8ground.test
+        paths:
+          - path: /
+            pathType: Prefix
+  
+  serverDefinitions:
+    enabled: true
+    servers:
+      1:
+        Name: Kubernetes PostgreSQL
+        Group: Kubernetes
+        Host: postgres-postgresql.dev-stage.svc.cluster.local
+        Port: 5432
+        MaintenanceDB: app_db
+        Username: admin
+        Password: admin
+        SSLMode: prefer
