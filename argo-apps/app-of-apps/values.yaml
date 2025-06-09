@@ -15,7 +15,7 @@ applications:
   - name: pgadmin
     namespace: dev-stage
     repoURL: https://github.com/ruslan-s/k8ground.git
-    path: argo-apps/apps/pgadmin
+    path: argo-apps/apps/pgAdmin
 
   # Keycloak for authentication
   - name: keycloak
