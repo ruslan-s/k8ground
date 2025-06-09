@@ -13,7 +13,7 @@ applications:
 
   # Keycloak for authentication
   - name: keycloak
-    namespace: auth
+    namespace: dg-auth
     repoURL: https://github.com/ruslan-s/k8ground.git
     path: argo-apps/apps/keycloak
 
