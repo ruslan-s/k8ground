@@ -1,0 +1,44 @@
+# Default values for PostgreSQL
+postgresql:
+  # Authentication
+  auth:
+    postgresPassword: "postgres"  # For production, use a proper secret
+    username: "admin"
+    password: "admin"      # For production, use a proper secret
+    database: "app_db"
+  
+  # Resources configuration
+  primary:
+    resources:
+      limits:
+        memory: 256Mi
+        cpu: 250m
+      requests:
+        memory: 128Mi
+        cpu: 100m
+    
+    # Persistence configuration
+    persistence:
+      size: 1Gi
+    
+    # Pod configuration
+    podAnnotations:
+      app.kubernetes.io/part-of: postgres
+    
+    # Service configuration
+    service:
+      type: ClusterIP
+      port: 5432
+
+    # Configure ingress
+    ingress:
+      enabled: true
+      hostname: psql.k8ground.test
+      path: /
+      pathType: Prefix
+  
+  # Enable metrics (Prometheus)
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: false  # Set to true if you have Prometheus Operator
