@@ -2,7 +2,7 @@ applications:
   # Simple nginx app
   - name: nginx
     namespace: playground
-    repoURL: git@github.com:ruslan-s/k8ground.git
+    repoURL: https://github.com/ruslan-s/k8ground.git 
     path: argo-apps/apps/nginx
     helm:
       values:
