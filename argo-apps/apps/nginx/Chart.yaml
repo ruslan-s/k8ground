@@ -4,6 +4,6 @@ description: NGINX deployment
 type: application
 version: 1.0.0
 dependencies:
-  - name: nginx
+  - name: app-test-dummy-nginx
     repository: https://charts.bitnami.com/bitnami
     version: 15.x.x
