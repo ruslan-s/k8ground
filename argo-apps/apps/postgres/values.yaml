@@ -36,6 +36,13 @@ postgresql:
     service:
       type: ClusterIP
       port: 5432
+
+    # Add initialization scripts to create keycloak database
+    initdb:
+      scripts:
+        create-keycloak-db.sql: |
+          CREATE DATABASE keycloak;
+          GRANT ALL PRIVILEGES ON DATABASE keycloak TO admin;
   
   # Enable metrics (Prometheus)
   metrics:
