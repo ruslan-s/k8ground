@@ -17,20 +17,3 @@ nginx:
     hostname: dummy-nginx.k8ground.test
     path: /
     pathType: Prefix
-    # If you're using a specific ingress class, uncomment and specify it
-    # ingressClassName: nginx
-    
-    # If you need TLS (HTTPS), uncomment this section
-    # tls: true
-    # selfSigned: true
-    # If you have a certificate, specify:
-    # extraTls:
-    # - hosts:
-    #   - dummy-nginx.k8ground.test
-    #   secretName: dummy-nginx-tls-secret
-    
-    # If you need annotations for your ingress controller (like nginx, traefik, etc.)
-    annotations:
-      # kubernetes.io/ingress.class: nginx  # Change this if you use a different ingress controller
-      # Add other annotations your ingress controller might need
-      # nginx.ingress.kubernetes.io/rewrite-target: /
