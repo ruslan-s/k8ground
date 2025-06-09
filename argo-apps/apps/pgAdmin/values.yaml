@@ -2,12 +2,13 @@ pgadmin4:
   extraEnvs:
     - name: PGADMIN_CONFIG_CHECK_EMAIL_DELIVERABILITY
       value: "False"
-    - name: PGADMIN_CONFIG_ALLOW_SPECIAL_EMAIL_DOMAINS
-      value: "true"
-    - name: PGADMIN_CONFIG_ALLOWED_EMAIL_DOMAINS
-      value: "k8ground.test"
+    # Remove these as they're not working correctly
+    # - name: PGADMIN_CONFIG_ALLOW_SPECIAL_EMAIL_DOMAINS
+    #   value: "true"
+    # - name: PGADMIN_CONFIG_ALLOWED_EMAIL_DOMAINS
+    #   value: "k8ground.test"
     - name: PGADMIN_DEFAULT_EMAIL
-      value: admin@k8ground.test  # Using a standard domain for now
+      value: admin@example.com  # Using a standard domain that will definitely pass validation
     - name: PGADMIN_DEFAULT_PASSWORD
       value: admin
   
