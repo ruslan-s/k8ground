@@ -1,12 +1,15 @@
 pgadmin4:
-  env:
-    email: admin@k8ground.test
-    password: admin
-
-    # Set pgAdmin environment variables properly
-    PGADMIN_CONFIG_CHECK_EMAIL_DELIVERABILITY: "False"
-    PGADMIN_CONFIG_ALLOW_SPECIAL_EMAIL_DOMAINS: "true"  # Boolean as string
-    PGADMIN_CONFIG_ALLOWED_EMAIL_DOMAINS: "k8ground.test"
+  extraEnvs:
+    - name: PGADMIN_CONFIG_CHECK_EMAIL_DELIVERABILITY
+      value: "False"
+    - name: PGADMIN_CONFIG_ALLOW_SPECIAL_EMAIL_DOMAINS
+      value: "true"
+    - name: PGADMIN_CONFIG_ALLOWED_EMAIL_DOMAINS
+      value: "k8ground.test"
+    - name: PGADMIN_DEFAULT_EMAIL
+      value: admin@k8ground.test  # Using a standard domain for now
+    - name: PGADMIN_DEFAULT_PASSWORD
+      value: admin
   
   ingress:
     enabled: true
