@@ -2,6 +2,8 @@ pgadmin4:
   env:
     email: admin@k8ground.test
     password: admin
+
+    ALLOW_SPECIAL_EMAIL_DOMAINS: "['k8ground.test']"
   
   ingress:
     enabled: true
