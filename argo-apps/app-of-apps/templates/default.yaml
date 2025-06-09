@@ -1,0 +1,30 @@
+{{- range .Values.applications }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: {{ .repoURL }}
+    targetRevision: {{ .targetRevision | default "HEAD" }}
+    path: {{ .path }}
+    {{- if .helm }}
+    helm:
+      {{- if .helm.values }}
+      values: |
+        {{- toYaml .helm.values | nindent 8 }}
+      {{- end }}
+    {{- end }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .namespace }}
+  ssyncPolicy:
+    automated:
+      prune: true  # delete resources when removed from git
+      selfHeal: true  # automatically sync when actual state deviates from desired state
+    syncOptions:
+    - CreateNamespace=true  # creates the namespace if it doesn't exist
+---
+{{- end }}

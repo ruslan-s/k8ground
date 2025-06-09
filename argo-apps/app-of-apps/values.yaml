@@ -1,0 +1,16 @@
+applications:
+  # Simple nginx app
+  - name: nginx
+    namespace: playground
+    repoURL: git@github.com:ruslan-s/k8ground.git
+    path: argo-apps/apps/nginx
+    helm:
+      values:
+        image:
+          tag: "1.25.3-alpine"
+        replicaCount: 2
+
+  # Add more apps here later
+  # - name: another-app
+  #   namespace: another-ns
+  #   ...
