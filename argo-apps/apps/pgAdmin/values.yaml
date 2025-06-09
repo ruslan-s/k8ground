@@ -3,7 +3,10 @@ pgadmin4:
     email: admin@k8ground.test
     password: admin
 
-    ALLOW_SPECIAL_EMAIL_DOMAINS: "['k8ground.test']"
+    # Set pgAdmin environment variables properly
+    PGADMIN_CONFIG_CHECK_EMAIL_DELIVERABILITY: "False"
+    PGADMIN_CONFIG_ALLOW_SPECIAL_EMAIL_DOMAINS: "true"  # Boolean as string
+    PGADMIN_CONFIG_ALLOWED_EMAIL_DOMAINS: "k8ground.test"
   
   ingress:
     enabled: true
