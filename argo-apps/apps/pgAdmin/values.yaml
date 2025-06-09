@@ -1,4 +1,7 @@
 pgadmin4:
+  env:
+    email: admin@admin.com
+    password: admin
   ingress:
     enabled: true
     hosts:
