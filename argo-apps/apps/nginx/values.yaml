@@ -1,4 +1,4 @@
 # Default values - can be overridden by app-of-apps
 image:
   tag: "1.25.2-alpine"  # Default tag
-replicaCount: 3         # Default replicas
+replicaCount: 5         # Default replicas
