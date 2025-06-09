@@ -11,6 +11,12 @@ applications:
     repoURL: https://github.com/ruslan-s/k8ground.git 
     path: argo-apps/apps/postgres
 
+  # Keycloak for authentication
+  - name: keycloak
+    namespace: auth
+    repoURL: https://github.com/ruslan-s/k8ground.git
+    path: argo-apps/apps/keycloak
+
   # Add more apps here later
   # - name: another-app
   #   namespace: another-ns

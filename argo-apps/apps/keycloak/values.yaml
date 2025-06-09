@@ -1,0 +1,53 @@
+keycloak:
+  # Basic configuration
+  image:
+    tag: 21.1.2
+  
+  # Admin credentials
+  auth:
+    adminUser: admin
+    adminPassword: admin  # For production, use a proper secret
+  
+  # Resources
+  resources:
+    limits:
+      memory: 512Mi
+      cpu: 500m
+    requests:
+      memory: 256Mi
+      cpu: 250m
+  
+  # Database configuration - use an external PostgreSQL database
+  externalDatabase:
+    host: postgres-postgresql.dev-stage.svc.cluster.local
+    port: 5432
+    user: admin
+    database: keycloak
+    password: admin
+  
+  # Ingress configuration
+  ingress:
+    enabled: true
+    rules:
+      - host: keycloak.k8ground.test
+        paths:
+          - path: /
+            pathType: Prefix
+  
+  # Persistence configuration
+  persistence:
+    deployPostgres: false  # Set to false if using external database
+    
+  # Pod configuration  
+  podAnnotations:
+    app.kubernetes.io/part-of: keycloak
+    app.kubernetes.io/component: auth
+  
+  # Service configuration
+  service:
+    type: ClusterIP
+    port: 80
+  
+  # Startup configuration
+  extraStartupArgs: >-
+    --optimized --http-enabled=true

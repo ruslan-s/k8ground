@@ -1,0 +1,9 @@
+apiVersion: v2
+name: keycloak
+description: Keycloak Identity and Access Management
+type: application
+version: 1.0.0
+dependencies:
+  - name: keycloak
+    repository: https://codecentric.github.io/helm-charts
+    version: 18.4.0
