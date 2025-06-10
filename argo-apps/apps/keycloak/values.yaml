@@ -6,24 +6,45 @@ keycloak:
   # Admin credentials
   auth:
     adminUser: admin
-    adminPassword: admin  # For production, use a proper secret
+    adminPassword: admin
   
-  # Resources
+  # Resources - increased for stability
   resources:
     limits:
-      memory: 512Mi
-      cpu: 500m
+      memory: 1024Mi
+      cpu: 1000m
     requests:
-      memory: 256Mi
+      memory: 512Mi
       cpu: 250m
   
-  # Database configuration - use an external PostgreSQL database
+  # Database configuration
   externalDatabase:
     host: postgres-postgresql.dev-stage.svc.cluster.local
     port: 5432
     user: admin
     database: keycloak
     password: admin
+  
+  # Add explicit database configuration
+  extraEnv:
+    - name: KC_DB
+      value: "postgres"
+    - name: KC_DB_URL_HOST
+      value: "postgres-postgresql.dev-stage.svc.cluster.local"
+    - name: KC_DB_URL_DATABASE
+      value: "keycloak"
+    - name: KC_DB_USERNAME
+      value: "admin"
+    - name: KC_DB_PASSWORD
+      value: "admin"
+    - name: KC_HEALTH_ENABLED
+      value: "true"
+    - name: KEYCLOAK_LOGLEVEL
+      value: "DEBUG"
+  
+  # Updated startup arguments - this is important for Keycloak v21+
+  extraStartupArgs: >-
+    --optimized --http-enabled=true --hostname-strict=false --hostname-strict-https=false
   
   # Ingress configuration
   ingress:
@@ -34,10 +55,6 @@ keycloak:
           - path: /
             pathType: Prefix
   
-  # Persistence configuration
-  persistence:
-    deployPostgres: false  # Set to false if using external database
-    
   # Pod configuration  
   podAnnotations:
     app.kubernetes.io/part-of: keycloak
@@ -48,6 +65,21 @@ keycloak:
     type: ClusterIP
     port: 80
   
-  # Startup configuration
-  extraStartupArgs: >-
-    --optimized --http-enabled=true
+  # Add proper startup probe
+  startupProbe:
+    enabled: true
+    failureThreshold: 60  # Allow more time for startup
+    initialDelaySeconds: 30
+    periodSeconds: 5
+    timeoutSeconds: 3
+    
+  # Use standard readiness/liveness probes
+  readinessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
+  
+  livenessProbe:
+    enabled: true
+    failureThreshold: 3
+    initialDelaySeconds: 30
