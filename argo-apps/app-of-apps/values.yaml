@@ -1,7 +1,7 @@
 applications:
   # Simple nginx app
-  - name: dummy-nginx
-    namespace: playground
+  - name: dummy-nginx-develop
+    namespace: ai4-apps-develop-kihub
     repoURL: https://github.com/ruslan-s/k8ground.git 
     path: argo-apps/apps/nginx
 
