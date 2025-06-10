@@ -5,5 +5,5 @@ type: application
 version: 1.0.0
 dependencies:
   - name: keycloak
-    repository: https://codecentric.github.io/helm-charts
+    repository: https://charts.bitnami.com/bitnami
     version: 24.7.1
