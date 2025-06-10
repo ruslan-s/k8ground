@@ -5,7 +5,7 @@ applications:
     repoURL: https://github.com/ruslan-s/k8ground.git 
     path: argo-apps/apps/nginx
 
-  - name: dummy-nginx-stage
+  - name: dummy-nginx-77777
     namespace: stage
     repoURL: https://github.com/ruslan-s/k8ground.git 
     path: argo-apps/apps/nginx
