@@ -4,9 +4,6 @@ applications:
     namespace: playground
     repoURL: https://github.com/ruslan-s/k8ground.git 
     path: argo-apps/apps/nginx
-    nginx:
-      image:
-      replicaCount: 4
 
   # PostgreSQL database (DEV Stage)
   - name: postgres
