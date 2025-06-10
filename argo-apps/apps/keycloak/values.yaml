@@ -17,13 +17,13 @@ keycloak:
       memory: 512Mi
       cpu: 250m
 
-  # # Database configuration
-  # externalDatabase:
-  #   host: postgres-postgresql.dev-stage.svc.cluster.local
-  #   port: 5432
-  #   username: admin
-  #   password: admin
-  #   database: keycloak
+  # Database configuration
+  externalDatabase:
+    host: postgres-postgresql.dev-stage.svc.cluster.local
+    port: 5432
+    username: admin
+    password: admin
+    database: keycloak
 
   # Add extra environment variables to force database configuration
   extraEnvVars:
