@@ -16,6 +16,10 @@ keycloak:
     requests:
       memory: 512Mi
       cpu: 250m
+
+  # Explicitly disable the embedded PostgreSQL
+  postgresql:
+    enabled: false
   
   # Database configuration
   externalDatabase:
@@ -25,22 +29,22 @@ keycloak:
     database: keycloak
     password: admin
   
-  # Format extraEnv as a string with appropriate syntax for the Helm chart
-  extraEnvVars:
-    - name: KC_DB
-      value: "postgres"
-    - name: KC_DB_URL_HOST
-      value: "postgres-postgresql.dev-stage.svc.cluster.local"
-    - name: KC_DB_URL_DATABASE
-      value: "keycloak"
-    - name: KC_DB_USERNAME
-      value: "admin"
-    - name: KC_DB_PASSWORD
-      value: "admin"
-    - name: KC_HEALTH_ENABLED
-      value: "true"
-    - name: KEYCLOAK_LOGLEVEL
-      value: "DEBUG"
+  # # Format extraEnv as a string with appropriate syntax for the Helm chart
+  # extraEnvVars:
+  #   - name: KC_DB
+  #     value: "postgres"
+  #   - name: KC_DB_URL_HOST
+  #     value: "postgres-postgresql.dev-stage.svc.cluster.local"
+  #   - name: KC_DB_URL_DATABASE
+  #     value: "keycloak"
+  #   - name: KC_DB_USERNAME
+  #     value: "admin"
+  #   - name: KC_DB_PASSWORD
+  #     value: "admin"
+  #   - name: KC_HEALTH_ENABLED
+  #     value: "true"
+  #   - name: KEYCLOAK_LOGLEVEL
+  #     value: "DEBUG"
   
   # Updated startup arguments - this is important for Keycloak v21+
   extraStartupArgs: >-
