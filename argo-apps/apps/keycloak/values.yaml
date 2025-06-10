@@ -1,14 +1,14 @@
 keycloak:
   # Basic configuration
   image:
-    tag: 21.1.2
+    tag: 26.2.5  # Use a version compatible with Bitnami's chart
   
   # Admin credentials
   auth:
     adminUser: admin
     adminPassword: admin
   
-  # Resources - increased for stability
+  # Resources
   resources:
     limits:
       memory: 1024Mi
@@ -17,72 +17,54 @@ keycloak:
       memory: 512Mi
       cpu: 250m
 
-  # Explicitly disable the embedded PostgreSQL
+  # Database configuration - Bitnami format
+  database:
+    vendor: postgresql
+    host: postgres-postgresql.dev-stage.svc.cluster.local
+    port: 5432
+    username: admin
+    password: admin
+    database: keycloak
+  
+  # Disable embedded PostgreSQL
   postgresql:
     enabled: false
   
-  # Database configuration
-  externalDatabase:
-    host: postgres-postgresql.dev-stage.svc.cluster.local
-    port: 5432
-    user: admin
-    database: keycloak
-    password: admin
-  
-  # # Format extraEnv as a string with appropriate syntax for the Helm chart
-  # extraEnvVars:
-  #   - name: KC_DB
-  #     value: "postgres"
-  #   - name: KC_DB_URL_HOST
-  #     value: "postgres-postgresql.dev-stage.svc.cluster.local"
-  #   - name: KC_DB_URL_DATABASE
-  #     value: "keycloak"
-  #   - name: KC_DB_USERNAME
-  #     value: "admin"
-  #   - name: KC_DB_PASSWORD
-  #     value: "admin"
-  #   - name: KC_HEALTH_ENABLED
-  #     value: "true"
-  #   - name: KEYCLOAK_LOGLEVEL
-  #     value: "DEBUG"
-  
-  # Updated startup arguments - this is important for Keycloak v21+
-  extraStartupArgs: >-
-    --optimized --http-enabled=true --hostname-strict=false --hostname-strict-https=false
+  # Configuration parameters
+  production: false  # Use false for development environments
+  proxy: edge
   
   # Ingress configuration
   ingress:
     enabled: true
-    ingressClassName: nginx
-    rules:
-      - host: keycloak.k8ground.test
-        paths:
-          - path: /
-            pathType: Prefix
+    hostname: keycloak.k8ground.test
+    path: /
+    pathType: Prefix
+  
+  # Service configuration
+  service:
+    type: ClusterIP
+    ports:
+      http: 80
+  
+  # Probes for Bitnami chart
+  startupProbe:
+    enabled: true
+    failureThreshold: 60
+    initialDelaySeconds: 30
+    periodSeconds: 10
+  
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 300
+    periodSeconds: 30
+  
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 30
+    periodSeconds: 10
   
   # Pod configuration  
   podAnnotations:
     app.kubernetes.io/part-of: keycloak
     app.kubernetes.io/component: auth
-  
-  # Service configuration
-  service:
-    type: ClusterIP
-    port: 80
-  
-  # Probes - fixed format
-  probes:
-    startup:
-      enabled: true
-      failureThreshold: 60
-      initialDelaySeconds: 30
-      periodSeconds: 5
-      timeoutSeconds: 3
-    readiness:
-      enabled: true
-      failureThreshold: 3
-      initialDelaySeconds: 30
-    liveness:
-      enabled: true
-      failureThreshold: 3
-      initialDelaySeconds: 30
