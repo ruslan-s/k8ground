@@ -5,10 +5,11 @@ applications:
     repoURL: https://github.com/ruslan-s/k8ground.git 
     path: argo-apps/apps/nginx
 
-  - name: dummy-nginx-2
-    namespace: playground2
+  - name: dummy-nginx-stage
+    namespace: stage
     repoURL: https://github.com/ruslan-s/k8ground.git 
     path: argo-apps/apps/nginx
+    targetRevision: stage
 
   # PostgreSQL database (DEV Stage)
   - name: postgres
