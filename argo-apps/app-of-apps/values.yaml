@@ -5,7 +5,7 @@ applications:
     repoURL: https://github.com/ruslan-s/k8ground.git 
     path: argo-apps/apps/nginx
 
-  - name: dummy-nginx
+  - name: dummy-nginx-2
     namespace: playground2
     repoURL: https://github.com/ruslan-s/k8ground.git 
     path: argo-apps/apps/nginx
